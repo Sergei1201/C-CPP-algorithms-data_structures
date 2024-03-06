@@ -5,7 +5,7 @@
 struct Node
 {
 public:
-    int data;
+    int data{};
     Node *next;
 };
 
@@ -15,18 +15,19 @@ Node *head;
 // Function prototype & forward declaration
 void insertFirstNode(int data);
 void printNode();
+void insertAt(int data, int n);
 
 int main()
 {
     // Empty list
     head = NULL;
-    int size;
-    int data;
+    int size{};
+    int data{};
     std::cout << "How many numbers do you want to enter into the linked list? ";
     std::cin >> size;
-    std::cout << "Linked list: " << std::endl;
     for (int i = 0; i < size; i++)
     {
+        std::cout << "Enter a number: " << std::endl;
         std::cin >> data;
         insertFirstNode(data);
         printNode();
@@ -38,11 +39,11 @@ int main()
 void insertFirstNode(int data)
 {
     // Dynamic memory allocation for a new node
-    Node *temp = new Node;
+    Node *temp = new Node();
     temp->data = data;
     temp->next = head;
     head = temp;
-    delete temp;
+    // delete temp;
 }
 void printNode()
 {
@@ -50,6 +51,19 @@ void printNode()
     while (temp1->next != NULL)
     {
         std::cout << temp1->data << " ";
+        temp1 = temp1->next;
     }
     std::cout << std::endl;
+}
+void insertAt(int data, int n)
+{
+    // Dynamically allocate memory for a new node
+    Node *temp1 = new Node();
+    temp1->data = data;
+    if (n == 1)
+    {
+        temp1->next = head;
+        head = temp1;
+        return;
+    }
 }
