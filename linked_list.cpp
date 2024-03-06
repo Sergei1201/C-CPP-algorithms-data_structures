@@ -1,11 +1,11 @@
 #include <iostream>
 #include <string>
 
-// Node struct
-struct Node
+// Node class
+class Node
 {
 public:
-    int data{};
+    int data;
     Node *next;
 };
 
@@ -13,57 +13,44 @@ public:
 Node *head;
 
 // Function prototype & forward declaration
-void insertFirstNode(int data);
-void printNode();
-void insertAt(int data, int n);
+void insertFirst(int data);
+void printList();
 
 int main()
 {
-    // Empty list
+    // Let's assume that we have an empty list in the beginning
     head = NULL;
-    int size{};
-    int data{};
-    std::cout << "How many numbers do you want to enter into the linked list? ";
+    int size;
+    int num;
+    std::cout << "Enter the number of linked list's elements please: ";
     std::cin >> size;
     for (int i = 0; i < size; i++)
     {
-        std::cout << "Enter a number: " << std::endl;
-        std::cin >> data;
-        insertFirstNode(data);
-        printNode();
+        std::cout << "Enter a number to build a linked list please: ";
+        std::cin >> num;
+        insertFirst(num);
+        printList();
     }
     return 0;
 }
 
 // Function definition
-void insertFirstNode(int data)
+void insertFirst(int data)
 {
-    // Dynamic memory allocation for a new node
+    // Dynamic memory allocation on a heap for a new node
     Node *temp = new Node();
+    // Assign values
     temp->data = data;
     temp->next = head;
     head = temp;
-    // delete temp;
 }
-void printNode()
+void printList()
 {
-    Node *temp1 = head;
-    while (temp1->next != NULL)
+    Node *temp = head;
+    while (temp->next != NULL)
     {
-        std::cout << temp1->data << " ";
-        temp1 = temp1->next;
+        std::cout << "Elements of the linked list " << temp->data << " ";
+        temp = temp->next;
     }
     std::cout << std::endl;
-}
-void insertAt(int data, int n)
-{
-    // Dynamically allocate memory for a new node
-    Node *temp1 = new Node();
-    temp1->data = data;
-    if (n == 1)
-    {
-        temp1->next = head;
-        head = temp1;
-        return;
-    }
 }
