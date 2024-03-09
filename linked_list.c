@@ -18,8 +18,11 @@ void insertAfter(struct Node *prevNode, int data);
 /* Insrt last element into the list*/
 void insertLast(struct Node **headRef, int data);
 
-/*Delete a node*/
+/* Delete a node */
 void deleteNode(struct Node **headRef, int key);
+
+/* Search for a node */
+int searchNode(struct Node **headRef, int key);
 
 /* Print the list*/
 void printList(struct Node *node);
@@ -32,7 +35,8 @@ int main()
     insertLast(&head, 70);
     insertLast(&head, 100);
     insertAfter(head->next, 90);
-    deleteNode(&head, 70);
+    deleteNode(&head, 20);
+    searchNode(&head, 90);
     printList(head);
     return 0;
 }
@@ -81,30 +85,47 @@ void insertLast(struct Node **headRef, int data)
 }
 void deleteNode(struct Node **headRef, int key)
 {
+    // Create a temp variable to traverse the linked list
     struct Node *temp = *headRef, *prev;
-    /* Check the first node, if the key is present delete the node by moving the head to the next node */
-    if (temp != NULL && temp->data == key)
+    // Check if there's a match at the head of the linked list thus removing the head
+    if (temp->next != NULL && temp->data == key)
     {
-        *headRef = temp->next;
+        // Move the head to the next node
+        *headRef = temp;
+        // Free memory for temp
         free(temp);
         return;
     }
-    // Traverse the linked list
+    // Traverse the list until you find the key
     while (temp->next != NULL && temp->data != key)
     {
         prev = temp;
         temp = temp->next;
     }
-    // Check if there's no match
+    // Check if there's no node to be found
     if (temp == NULL)
     {
-        printf("No match has been found");
+        printf("No match to be found");
         return;
     }
     // Delete a node
     prev->next = temp->next;
     free(temp);
 }
+int searchNode(struct Node **headRef, int key)
+{
+    struct Node *current = *headRef;
+    while (current != NULL)
+    {
+        if (current->data = key)
+        {
+            return 1;
+        }
+        current = current->next;
+    }
+    return 0;
+}
+
 void printList(struct Node *node)
 {
     struct Node *temp = node;
@@ -114,4 +135,5 @@ void printList(struct Node *node)
         temp = temp->next;
 
     } while (temp->next != NULL);
+    printf("\n");
 }
