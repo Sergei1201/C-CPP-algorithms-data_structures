@@ -1,5 +1,6 @@
 # Node class
 class Node:
+    # Constructor
     def __init__(self, data):
         self.data = data
         self.next = None
@@ -8,11 +9,13 @@ class Node:
 
 
 class Linked_List:
+    # Constructor
     def __init__(self):
         self.head = None
 
-    # Insert first
+    # Insert an element at the beginning of the list
     def insert_first(self, new_data):
+        # Create a new node with data tha's passed in as an agrument
         new_node = Node(new_data)
         new_node.next = self.head
         self.head = new_node
@@ -21,20 +24,20 @@ class Linked_List:
     def print_list(self):
         temp = self.head
         while (temp):
-            print(f'Linked list: {temp.data} ')
+            print(f'The linked list: {temp.data} ')
+
             temp = temp.next
 
 
 if __name__ == '__main__':
-    # Initialize empty list
+    # Instantiate linked list class
     linked_list = Linked_List()
 
-    # Assign values
-
+    # Insert elements
+    linked_list.insert_first(5)
     linked_list.insert_first(10)
     linked_list.insert_first(20)
     linked_list.insert_first(30)
-    linked_list.insert_first(40)
 
-   # Print list
+    # Print list
     linked_list.print_list()
