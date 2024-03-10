@@ -25,6 +25,9 @@ void deleteNode(struct Node **headRef, int key);
 /* Search for a node */
 bool searchNode(struct Node **headRef, int key);
 
+/*Sort the linked list*/
+void sortList(struct Node **headRef);
+
 /* Print the list*/
 void printList(struct Node *node);
 
@@ -36,18 +39,21 @@ int main()
     insertLast(&head, 70);
     insertLast(&head, 100);
     insertAfter(head->next, 90);
-    deleteNode(&head, 20);
-    int searchedItem = 10;
-    if (searchNode(&head, searchedItem))
-    {
-        printf("The item \n%d has been found", searchedItem);
-        printf("\n");
-    }
-    else
-    {
-        printf("The item \n%d has not been found", searchedItem);
-        printf("\n");
-    }
+    // deleteNode(&head, 20);
+    insertLast(&head, 560);
+    insertFirst(&head, 95);
+    sortList(&head);
+    //  int searchedItem = 10;
+    //  if (searchNode(&head, searchedItem))
+    //  {
+    //      printf("The item \n%d has been found", searchedItem);
+    //      printf("\n");
+    //  }
+    //  else
+    //  {
+    //      printf("The item \n%d has not been found", searchedItem);
+    //      printf("\n");
+    //  }
     printList(head);
     return 0;
 }
@@ -136,7 +142,38 @@ bool searchNode(struct Node **headRef, int key)
     }
     return false;
 }
-
+void sortList(struct Node **headRef)
+{
+    // Initialize the current variable that points to the head at the beginning
+    struct Node *current = *headRef;
+    // Initialize the index to null (pointer to the next node) at the beginning
+    struct Node *index = NULL;
+    // Initialize temp variable to swap two elements
+    int temp;
+    // If the head points to null, return
+    if (headRef == NULL)
+    {
+        return;
+    }
+    else
+    {
+        while (current->next != NULL)
+        {
+            index = current->next;
+            while (index->next != NULL)
+            {
+                if (current->data > index->data)
+                {
+                    temp = current->data;
+                    current->data = index->data;
+                    index->data = temp;
+                }
+                index = index->next;
+            }
+            current = current->next;
+        }
+    }
+}
 void printList(struct Node *node)
 {
     struct Node *temp = node;
