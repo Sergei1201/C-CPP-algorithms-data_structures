@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 // Node structure
 struct Node
@@ -22,7 +23,7 @@ void insertLast(struct Node **headRef, int data);
 void deleteNode(struct Node **headRef, int key);
 
 /* Search for a node */
-int searchNode(struct Node **headRef, int key);
+bool searchNode(struct Node **headRef, int key);
 
 /* Print the list*/
 void printList(struct Node *node);
@@ -36,7 +37,17 @@ int main()
     insertLast(&head, 100);
     insertAfter(head->next, 90);
     deleteNode(&head, 20);
-    searchNode(&head, 90);
+    int searchedItem = 10;
+    if (searchNode(&head, searchedItem))
+    {
+        printf("The item \n%d has been found", searchedItem);
+        printf("\n");
+    }
+    else
+    {
+        printf("The item \n%d has not been found", searchedItem);
+        printf("\n");
+    }
     printList(head);
     return 0;
 }
@@ -112,18 +123,18 @@ void deleteNode(struct Node **headRef, int key)
     prev->next = temp->next;
     free(temp);
 }
-int searchNode(struct Node **headRef, int key)
+bool searchNode(struct Node **headRef, int key)
 {
     struct Node *current = *headRef;
     while (current != NULL)
     {
-        if (current->data = key)
+        if (current->data == key)
         {
-            return 1;
+            return true;
         }
         current = current->next;
     }
-    return 0;
+    return false;
 }
 
 void printList(struct Node *node)
