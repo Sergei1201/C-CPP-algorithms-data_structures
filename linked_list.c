@@ -108,7 +108,7 @@ void deleteNode(struct Node **headRef, int key)
     if (temp->next != NULL && temp->data == key)
     {
         // Move the head to the next node
-        *headRef = temp;
+        *headRef = temp->next;
         // Free memory for temp
         free(temp);
         return;
