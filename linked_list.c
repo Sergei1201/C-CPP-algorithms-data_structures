@@ -1,3 +1,5 @@
+/* Here is the full implementation of the singly linked list algorithm in the C language */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
