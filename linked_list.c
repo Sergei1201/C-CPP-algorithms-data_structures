@@ -2,135 +2,153 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-// Node structure
+// Define Node structure
 struct Node
 {
     int data;
     struct Node *next;
 };
 
-// Function declaration & prototyping
-/* Insert first element into the list*/
+/* Function forward declaration & prototyping*/
+
+// Insert at the beginning of the linked list
 void insertFirst(struct Node **headRef, int data);
 
-/* Insert after a certain node in the list*/
+// Insert after
 void insertAfter(struct Node *prevNode, int data);
 
-/* Insrt last element into the list*/
+// Insert at the end of the linked list
 void insertLast(struct Node **headRef, int data);
 
-/* Delete a node */
+// Delete a node
 void deleteNode(struct Node **headRef, int key);
 
-/* Search for a node */
+// Search for a node
 bool searchNode(struct Node **headRef, int key);
 
-/*Sort the linked list*/
+// Sort a linked list
 void sortList(struct Node **headRef);
 
-/* Print the list*/
-void printList(struct Node *node);
+// Print linked list onto the screen
+void printList(struct Node *head);
 
 int main()
 {
+    // At the beginning the list is empty and the head does not point to anything
     struct Node *head = NULL;
-    insertFirst(&head, 20);
-    insertFirst(&head, 30);
-    insertLast(&head, 70);
-    insertLast(&head, 100);
-    insertAfter(head->next, 90);
-    // deleteNode(&head, 20);
-    insertLast(&head, 560);
-    insertFirst(&head, 95);
+    insertFirst(&head, 70);
+    insertFirst(&head, -25);
+    insertAfter(head->next, 120);
+    insertAfter(head->next, 130);
+    insertLast(&head, 110);
+    insertLast(&head, 250);
+    insertFirst(&head, 2);
+    insertFirst(&head, 2500);
+    insertLast(&head, 99);
+    deleteNode(&head, -25);
+    deleteNode(&head, 99);
+    int key = 196;
+    if (searchNode(&head, key))
+    {
+        printf("The node %d has been found in the list ", key);
+        printf("\n");
+    }
+    else
+    {
+        printf("The node %d hasn't been found in the list ", key);
+        printf("\n");
+    }
     sortList(&head);
-    //  int searchedItem = 10;
-    //  if (searchNode(&head, searchedItem))
-    //  {
-    //      printf("The item \n%d has been found", searchedItem);
-    //      printf("\n");
-    //  }
-    //  else
-    //  {
-    //      printf("The item \n%d has not been found", searchedItem);
-    //      printf("\n");
-    //  }
     printList(head);
     return 0;
 }
 
-// Function definition
+/* Function definition*/
+
 void insertFirst(struct Node **headRef, int data)
 {
-    // Dynamic memory allocation
-    struct Node *newNode = malloc(sizeof(struct Node));
+    // Dynamically memory allocation for a new node
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    // Assign data to the newly created node
     newNode->data = data;
+    // Point the node to the head
     newNode->next = *headRef;
+    // Shift the head to the newly created node (change the head)
     *headRef = newNode;
 }
+
 void insertAfter(struct Node *prevNode, int data)
 {
-    // Check if the previous node is null
+    // Check if there's no previous node
     if (prevNode == NULL)
     {
         printf("The previous node cannot be null");
         return;
     }
-    // Dynamic memory allocation for a new node
-    struct Node *newNode = malloc(sizeof(struct Node));
+    // Dynamically memory allocation on the heap for a new node
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    // Assign values
     newNode->data = data;
     newNode->next = prevNode->next;
     prevNode->next = newNode;
 }
+
 void insertLast(struct Node **headRef, int data)
 {
-    // Dynamic memory allocation
-    struct Node *newNode = malloc(sizeof(struct Node));
+    // Dynamic memory allocation for a new node
+    struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
+    // Create temp variable to traverse the list
     struct Node *temp = *headRef;
+    // Assign values
     newNode->data = data;
     newNode->next = NULL;
 
+    // Check if the head is null, assign the newly created node to the head and return
     if (*headRef == NULL)
     {
         *headRef = newNode;
         return;
     }
+
+    // Traverse the list till the end and point the last node to the new node
     while (temp->next != NULL)
     {
         temp = temp->next;
     }
     temp->next = newNode;
 }
+
 void deleteNode(struct Node **headRef, int key)
 {
-    // Create a temp variable to traverse the linked list
     struct Node *temp = *headRef, *prev;
-    // Check if there's a match at the head of the linked list thus removing the head
+
+    // Check if the head is to be deleted, point the head to the next node
     if (temp->next != NULL && temp->data == key)
     {
-        // Move the head to the next node
         *headRef = temp->next;
-        // Free memory for temp
         free(temp);
         return;
     }
-    // Traverse the list until you find the key
+    // Traverse the list and find the key to be deleted
     while (temp->next != NULL && temp->data != key)
     {
         prev = temp;
         temp = temp->next;
     }
-    // Check if there's no node to be found
+    // No match
     if (temp == NULL)
     {
-        printf("No match to be found");
+        printf("No node to be deleted");
         return;
     }
-    // Delete a node
+    // Delete the particular node in the list
     prev->next = temp->next;
     free(temp);
 }
+
 bool searchNode(struct Node **headRef, int key)
 {
+    // Set the current node to search for a particular node
     struct Node *current = *headRef;
     while (current != NULL)
     {
@@ -142,46 +160,46 @@ bool searchNode(struct Node **headRef, int key)
     }
     return false;
 }
+
 void sortList(struct Node **headRef)
 {
-    // Initialize the current variable that points to the head at the beginning
+    // Declare the current element at the beginning
     struct Node *current = *headRef;
-    // Initialize the index to null (pointer to the next node) at the beginning
+    // Define an index (next node)
     struct Node *index = NULL;
-    // Initialize temp variable to swap two elements
+    // Declare a temp variable for swapping adjacent nodes
     int temp;
-    // If the head points to null, return
+    // Check if the head is null
     if (headRef == NULL)
     {
         return;
     }
-    else
+    while (current != NULL)
     {
-        while (current->next != NULL)
+        index = current->next;
+        while (index != NULL)
         {
-            index = current->next;
-            while (index->next != NULL)
+            if (current->data > index->data)
             {
-                if (current->data > index->data)
-                {
-                    temp = current->data;
-                    current->data = index->data;
-                    index->data = temp;
-                }
-                index = index->next;
+                temp = current->data;
+                current->data = index->data;
+                index->data = temp;
             }
-            current = current->next;
+            index = index->next;
         }
+        current = current->next;
     }
 }
-void printList(struct Node *node)
+
+void printList(struct Node *head)
 {
-    struct Node *temp = node;
+    // Traverse the list and print data on each iteration
+    struct Node *temp = head;
     do
     {
         printf("Linked list: %d ", temp->data);
         temp = temp->next;
 
-    } while (temp->next != NULL);
+    } while (temp != NULL);
     printf("\n");
 }
