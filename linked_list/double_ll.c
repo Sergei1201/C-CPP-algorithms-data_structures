@@ -1,3 +1,4 @@
+/* Full implementation of a double linked list in the C programming language */
 #include <stdio.h>
 #include <stdlib.h>
 
