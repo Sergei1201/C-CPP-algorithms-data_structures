@@ -22,13 +22,13 @@ void printList(struct Node *head);
 
 int main()
 {
-    // Let's assume that the linked list is empty at the beginning, therefore the head is equal to NULL
+    // Lets' assume that the linked list is empty at the beginning
     struct Node *head = NULL;
     pushNode(&head, 25);
+    pushNode(&head, 35);
     pushNode(&head, 45);
     pushNode(&head, 55);
     pushNode(&head, 65);
-    pushNode(&head, 75);
     printList(head);
     reverseList(&head);
     printList(head);
@@ -56,22 +56,24 @@ void reverseList(struct Node **headRef)
 
 void pushNode(struct Node **headRef, int data)
 {
-    // Dynamic memory allocation for a new node
+    // Dynamic memory allocation on the heap for a new node
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
     // Assign values
     newNode->data = data;
+    // Point new node to the head
     newNode->next = *headRef;
+    // Shift the head to the new node
     *headRef = newNode;
 }
 
-void printList(struct Node *head)
+void printList(struct Node *headRef)
 {
-    // Set a temporary variable to traverse the linked list and print values of the nodes on each iteration
-    struct Node *temp = head;
+    // Set a temporary variable to traverse the linked list starting from the head
+    struct Node *temp = headRef;
     while (temp)
     {
         printf("Linked list: %d ", temp->data);
         temp = temp->next;
-    }
+    };
     printf("\n");
 }
