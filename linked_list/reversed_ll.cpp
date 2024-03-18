@@ -1,4 +1,4 @@
-/* Full implementation of a linked list data structure in the C++ programming language */
+/* Full implementation of the reversed linked list data structure in the C++ programming language */
 #include <iostream>
 #include <stdlib.h>
 

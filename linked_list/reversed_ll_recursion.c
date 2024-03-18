@@ -1,8 +1,8 @@
-/* Implementation of a reversed linked list using recursion in the C programming language */
+/* Full implementation of the reversed linked list data using recursion in the C programming language  */
 #include <stdio.h>
 #include <stdlib.h>
 
-/* Node structure */
+/* Node struct */
 struct Node
 {
     int data;
@@ -14,7 +14,7 @@ struct Node
 // Push a new node to the linked list
 void pushNode(struct Node **headRef, int data);
 
-// Reverse the linked list using recursion
+// Reverse the linked list recursively
 void reverseList(struct Node **headRef);
 
 // Print the linked list
@@ -22,13 +22,13 @@ void printList(struct Node *head);
 
 int main()
 {
-    // Lets' assume that the list is empty at the beginning
+    // Let's assume that we've got an empty list at the beginning
     struct Node *head = NULL;
-    pushNode(&head, 20);
     pushNode(&head, 25);
     pushNode(&head, 35);
-    pushNode(&head, 50);
+    pushNode(&head, 95);
     pushNode(&head, 99);
+    pushNode(&head, 100);
     printList(head);
     reverseList(&head);
     printList(head);
@@ -41,30 +41,31 @@ void pushNode(struct Node **headRef, int data)
 {
     // Dynamic memory allocation on the heap for a new node
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
-    // Assign values
+    // Assign data
     newNode->data = data;
-    // Point the new node to the head
+    // Change the next pointer of the new node to the head pointer
     newNode->next = *headRef;
-    // Shift the head to the new node
+    // Shift the head reference to the new node
     *headRef = newNode;
 }
 
 void reverseList(struct Node **headRef)
 {
-    // Initialize two variables: first and rest
-    struct Node *first, *rest;
-    first = *headRef;
-    rest = first->next;
-    // Check if the list is empty
-    if (!*headRef)
+    // Consider the case where there's no head or no next node. In this case there's nothing to work on, just return and that's it
+    struct Node *temp = *headRef;
+    if (!temp || !temp->next)
     {
         return;
     }
-    // Check if there's only one node
+    // Divide the linked list in two parts: the first one is the first node, the second one is the rest of the list
+    struct Node *first = *headRef;
+    struct Node *rest = first->next;
+    // Check if there's not rest, return
     if (!rest)
     {
         return;
     }
+    // Call the reverse function recursively
     reverseList(&rest);
     first->next->next = first;
     first->next = NULL;
@@ -73,8 +74,9 @@ void reverseList(struct Node **headRef)
 
 void printList(struct Node *head)
 {
-    // Set a temporary variable to traverse the linked list and print values of every node on each iteration starting at the beginning
+    // Assign a temp variable to traverse the linked list
     struct Node *temp = head;
+    // Traverse the linked list from the beginning and print values on each iteration
     while (temp)
     {
         printf("Linked list: %d ", temp->data);
