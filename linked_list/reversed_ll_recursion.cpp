@@ -46,7 +46,7 @@ public:
     // Reverse the linked list using recurson
     Node *reverseList(Node *head)
     {
-        // Let's assume there's no head
+        // Let's assume there's no head or we've reached the end of the list
         if (!head || !head->next)
         {
             return head;
