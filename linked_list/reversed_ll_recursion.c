@@ -51,24 +51,24 @@ void pushNode(struct Node **headRef, int data)
 
 void reverseList(struct Node **headRef)
 {
-    // Consider the case where there's no head or no next node. In this case there's nothing to work on, just return and that's it
-    struct Node *temp = *headRef;
-    if (!temp || !temp->next)
+    // Case list is empty
+    if (!*headRef)
     {
         return;
     }
-    // Divide the linked list in two parts: the first one is the first node, the second one is the rest of the list
-    struct Node *first = *headRef;
-    struct Node *rest = first->next;
-    // Check if there's not rest, return
+    // Make pointers to traverse the list recursively
+    struct Node *firstNode = *headRef;
+    struct Node *rest = firstNode->next;
+    // Check if the rest is not equal to null
     if (!rest)
     {
+        *headRef = firstNode;
         return;
     }
-    // Call the reverse function recursively
+    // Traverse the list recursively
     reverseList(&rest);
-    first->next->next = first;
-    first->next = NULL;
+    firstNode->next->next = firstNode;
+    firstNode->next = NULL;
     *headRef = rest;
 }
 
