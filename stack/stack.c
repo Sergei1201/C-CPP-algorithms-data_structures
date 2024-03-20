@@ -1,13 +1,10 @@
-/* Implementation of the stack DSA using C-style arrays in the C programming language */
+/* Stack DSA implementation with arrays in C */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-// Define the MAX number of element in an array
-#define MAX 6
-
-// Global variables
-int count = 0;
+// Define a global const variable to figure out the size of an array
+#define MAX 5
 
 /* Stack struct */
 struct Stack
@@ -15,55 +12,55 @@ struct Stack
     int items[MAX];
     int top;
 };
-typedef struct Stack st;
 
-/* Function forward declaration & prototyping */
+// Global variable to count the number of elements in the stack
+int count = 0;
 
-// Create an empty stack
-void createEmtpyStack(st *s);
+/* Function forward declaration */
 
-// Check if the stack is empty
-bool isEmpty(st *s);
+// Check if stack is empty
+bool isEmpty(struct Stack *s);
 
-// Check if the stack is full
-bool isFull(st *s);
+// Check if stack is full
+bool isFull(struct Stack *s);
 
-// Push a new element into the stack
-void pushElement(st *s, int data);
+// Create a new empty stack
+void createEmptyStack(struct Stack *s);
 
-// Pop an element from the top of the stack
-void popElement(st *s);
+// Pop the uppermost element of the stack
+void popElement(struct Stack *s);
+
+// Push an element to the top of the stack
+void pushElement(struct Stack *s, int element);
 
 // Print the stack
-void printStack(st *s);
+void printStack(struct Stack *s);
 
 int main()
 {
-    // Dynamic memory allocation for a new stack on the heap
-    st *s = (st *)malloc(sizeof(st));
-    createEmtpyStack(s);
-    pushElement(s, 25);
-    pushElement(s, 35);
-    pushElement(s, 45);
-    printStack(s);
+    // Dynamic memory allocation on the heap for a new stack
+    struct Stack *s = (struct Stack *)malloc(sizeof(struct Stack));
+    // Create an empty stack to get started with
+    createEmptyStack(s);
+    pushElement(s, 1);
+    pushElement(s, 3);
+    pushElement(s, 5);
+    pushElement(s, 10);
+    pushElement(s, 20);
     popElement(s);
-    pushElement(s, 55);
-    pushElement(s, 65);
-    pushElement(s, 66);
-    pushElement(s, 33);
-    pushElement(s, 88);
+    popElement(s);
+    popElement(s);
+    popElement(s);
+    popElement(s);
+    popElement(s);
     printStack(s);
+
     return 0;
 }
 
 /* Function definition */
 
-void createEmtpyStack(st *s)
-{
-    s->top = -1;
-}
-
-bool isEmpty(st *s)
+bool isEmpty(struct Stack *s)
 {
     if (s->top == -1)
     {
@@ -75,7 +72,7 @@ bool isEmpty(st *s)
     }
 }
 
-bool isFull(st *s)
+bool isFull(struct Stack *s)
 {
     if (s->top == MAX - 1)
     {
@@ -87,24 +84,30 @@ bool isFull(st *s)
     }
 }
 
-void pushElement(st *s, int data)
+void createEmptyStack(struct Stack *s)
+{
+    // The top element is zero
+    s->top = -1;
+}
+
+void pushElement(struct Stack *s, int element)
 {
     // Check if the stack is full
     if (isFull(s))
     {
         printf("The stack is full\n");
-
         return;
     }
     else
     {
         s->top++;
-        s->items[s->top] = data;
+        s->items[s->top] = element;
     }
+    // Increment the size of the stack by 1
     count++;
 }
 
-void popElement(st *s)
+void popElement(struct Stack *s)
 {
     // Check if the stack is empty
     if (isEmpty(s))
@@ -114,15 +117,18 @@ void popElement(st *s)
     }
     else
     {
-        printf("The popped item is %d\n ", s->items[s->top]);
+        // Printing the popped element
+        printf("The popped element is %d ", s->items[s->top]);
+        // Decrease the current index of the array by 1
         s->top--;
     }
+    // Decrement the size of the stack by 1
     count--;
 }
 
-void printStack(st *s)
+void printStack(struct Stack *s)
 {
-    printf("Stack elements: ");
+    printf("The stack is: ");
     for (int i = 0; i < count; i++)
     {
         printf("%d ", s->items[i]);
