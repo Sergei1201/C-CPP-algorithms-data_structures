@@ -60,6 +60,7 @@ void popElement(struct Node **headRef)
     // Shift the head to the next node
     struct Node *temp = *headRef;
     *headRef = temp->next;
+    // Deallocate memory for the top node
     free(temp);
 }
 
