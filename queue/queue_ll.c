@@ -39,6 +39,8 @@ int main()
     enqueue(q, 10);
     printQueue(q);
     dequeue(q);
+    dequeue(q);
+    dequeue(q);
     printQueue(q);
 
     return 0;
@@ -83,13 +85,14 @@ void dequeue(struct Queue *q)
     // Check if the queue is empty
     if (!q->front)
     {
+        printf("The queue is empty!\n");
         return;
     }
     // otherwise, shift the pointer to the front node to the next one
     struct Node *temp = q->front;
     q->front = q->front->next;
     // If we've reached the end of the queue, set rear and front to null - reset the queue
-    if (q->front == NULL)
+    if (q->front > q->rear)
     {
         q->front = q->rear = NULL;
     }
@@ -100,11 +103,10 @@ void dequeue(struct Queue *q)
 void printQueue(struct Queue *q)
 {
     struct Node *temp = q->front;
-    printf("The queue: ");
-    while (q->front)
+    while (temp)
     {
-        printf("%d ", q->front->data);
-        q->front = q->front->next;
+        printf("%d ", temp->data);
+        temp = temp->next;
     }
     printf("\n");
 }
