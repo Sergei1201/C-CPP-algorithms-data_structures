@@ -1,4 +1,5 @@
-# Queue implementation in Python using arrays
+
+# Queue DSA implementation in Python using lists
 
 # Queue class
 class Queue:
@@ -37,10 +38,12 @@ class Queue:
 if __name__ == '__main__':
     # Instantiate the Queue class
     q = Queue()
-    q.enqueue(5)
-    q.enqueue(10)
-    q.enqueue(20)
+    q.enqueue(50)
+    q.enqueue(60)
+    q.enqueue(80)
+    q.enqueue(90)
     q.print_queue()
+    q.dequeue()
     q.dequeue()
     q.dequeue()
     q.dequeue()
