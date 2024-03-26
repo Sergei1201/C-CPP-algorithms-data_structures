@@ -1,15 +1,14 @@
 /* Queue DSA implementation using linked lists in C++ witn OOP */
 #include <iostream>
 
-/* Node class */
-class Node
+/* Node struct */
+struct Node
 {
-    /* Data members */
 public:
+    /* Data members */
     int data;
     Node *next;
 
-public:
     /* Default constructor */
     Node()
         : data(), next(NULL)
@@ -78,7 +77,7 @@ public:
         {
             front = rear = NULL;
         }
-        // Free memory allocated for the temp variable to pop out the first node
+        // Deallocate memory for the temp variable to pop out the first node
         delete temp;
     }
 
@@ -104,8 +103,6 @@ int main()
     q.enqueue(10);
     q.enqueue(25);
     q.printQueue();
-    q.dequeue();
-    q.dequeue();
     q.dequeue();
     q.dequeue();
     q.printQueue();
