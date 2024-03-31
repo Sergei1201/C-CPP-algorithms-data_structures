@@ -3,7 +3,8 @@
 #include <stdlib.h>
 
 /* Node struct with two pointers */
-struct Node {
+struct Node
+{
     int data;
     struct Node *left;
     struct Node *right;
@@ -26,11 +27,11 @@ struct Node *createNewNode(int data);
 // Insert a node to the left
 struct Node *insertLeft(struct Node *root, int data);
 
-// Insert a node to the right 
+// Insert a node to the right
 struct Node *insertRight(struct Node *root, int data);
 
-
-int main() {
+int main()
+{
     // Create a new node
     struct Node *root = createNewNode(100);
     insertLeft(root, 10);
@@ -52,9 +53,11 @@ int main() {
 
 /* Function definition */
 
-void inorderTraversal(struct Node *root) {
+void inorderTraversal(struct Node *root)
+{
     // Check if the root is null
-    if (!root) {
+    if (!root)
+    {
         return;
     }
     inorderTraversal(root->left);
@@ -62,9 +65,11 @@ void inorderTraversal(struct Node *root) {
     inorderTraversal(root->right);
 }
 
-void preorderTraversal(struct Node *root) {
+void preorderTraversal(struct Node *root)
+{
     // Check if the root is null (the tree is empty)
-    if (!root) {
+    if (!root)
+    {
         return;
     }
     printf("The node -> %d ", root->data);
@@ -72,17 +77,20 @@ void preorderTraversal(struct Node *root) {
     preorderTraversal(root->right);
 }
 
-void postorderTraversal(struct Node *root) {
+void postorderTraversal(struct Node *root)
+{
     // Check if the root is null
-    if (!root) {
+    if (!root)
+    {
         return;
     }
     postorderTraversal(root->left);
-    preorderTraversal(root->right);
+    postorderTraversal(root->right);
     printf("The node -> %d ", root->data);
 }
 
-struct Node *createNewNode(int data) {
+struct Node *createNewNode(int data)
+{
     // Dynamic memory allocation on the heap for a new node
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
     // Assign values
@@ -92,12 +100,14 @@ struct Node *createNewNode(int data) {
     return newNode;
 }
 
-struct Node *insertLeft(struct Node *root, int data) {
-   root->left = createNewNode(data);
-   return root->left;
+struct Node *insertLeft(struct Node *root, int data)
+{
+    root->left = createNewNode(data);
+    return root->left;
 }
 
-struct Node *insertRight(struct Node *root, int data) {
-   root->right = createNewNode(data);
-   return root->right;
+struct Node *insertRight(struct Node *root, int data)
+{
+    root->right = createNewNode(data);
+    return root->right;
 }
