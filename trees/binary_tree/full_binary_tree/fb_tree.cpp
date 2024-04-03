@@ -11,9 +11,9 @@ public:
 
     /* Constructor */
 
-    // Default constructro
+    // Default constructror
     Node() = default;
-    // Parameterized constructro
+    // Parameterized constructror
     Node(int data)
         : m_data(data), right(NULL), left(NULL)
     {
