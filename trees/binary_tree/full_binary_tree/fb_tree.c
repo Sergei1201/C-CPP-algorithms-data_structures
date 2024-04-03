@@ -1,9 +1,8 @@
-/* Full binary tree is a tree where every parent/internal has two or no children */
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
 
-/* Struct node */
+/* Node struct */
 struct Node
 {
     int data;
@@ -12,25 +11,24 @@ struct Node
 
 /* Function prototyping */
 
-// Create a new node
-struct Node *createNode(int data);
+// Create a new node for our tree
+struct Node *createNewNode(int data);
 
-// Check if the tree is a full binary tree
-bool isFullBinaryTree(struct Node *root);
+// Check if the binary tree is full
+bool isBinaryTreeFull(struct Node *root);
 
 int main()
 {
-    // Let's assume that the tree is empty to get started with
+    // Let's assume that our tree is empty to get started with
     struct Node *root = NULL;
-    root = createNode(1);
-    root->left = createNode(5);
-    root->left->left = createNode(20);
-    root->left->right = createNode(25);
-    root->right = createNode(10);
-    root->right->right = createNode(7);
-    root->right->left = createNode(99);
-
-    if (isFullBinaryTree(root))
+    root = createNewNode(1);
+    root->left = createNewNode(5);
+    root->left->left = createNewNode(20);
+    root->left->right = createNewNode(25);
+    root->right = createNewNode(10);
+    root->right->left = createNewNode(30);
+    // root->right->right = createNewNode(7);
+    if (isBinaryTreeFull(root))
     {
         printf("The binary tree is full\n");
     }
@@ -39,14 +37,23 @@ int main()
         printf("The binary tree is not full\n");
     }
 
+    /*
+                1
+
+            5       10
+
+        20    25  30     7
+
+    */
+
     return 0;
 }
 
 /* Function definition */
 
-struct Node *createNode(int data)
+struct Node *createNewNode(int data)
 {
-    // Dynamic memory allocation on the heap for a new node
+    // Dynamically allocate memory on the heap for a new node
     struct Node *newNode = (struct Node *)malloc(sizeof(struct Node));
     // Assign values
     newNode->data = data;
@@ -54,22 +61,22 @@ struct Node *createNode(int data)
     return newNode;
 }
 
-bool isFullBinaryTree(struct Node *root)
+bool isBinaryTreeFull(struct Node *root)
 {
-    // Check if there's no node
+    // Check if there's no root
     if (!root)
     {
         return true;
     }
-    // If the root has no children, our tree is a full binary tree
+    // Check if the root has not children
     if (!root->left && !root->right)
     {
         return true;
     }
-    // Check if each internal node has two children
+    // Check if our root has two children and all internal nodes have two children
     if (root->left && root->right)
     {
-        return (isFullBinaryTree(root->left) && isFullBinaryTree(root->right));
+        return (isBinaryTreeFull(root->left) && isBinaryTreeFull(root->right));
     }
     return false;
 }
