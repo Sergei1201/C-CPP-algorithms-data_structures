@@ -1,42 +1,39 @@
-/* The bubble sorting algorithm implementation in C++*/
+/* Bubble sort algorithm implementation in C++ using arrays */
 #include <iostream>
 
-/* Function prototyping */
+/* Function declaration & prototyping */
 
-// Bubble sort function using an array
+// Bubble sorting algorithm
 void bubbleSort(int arr[], int size);
 
-// Print the sorted array
+// Print all the elements of the sorted array onto the screen
 void printArray(int arr[], int size);
 
 int main()
 {
-    // Create an array of integers for the sake of simplicity
-    int arr1[] = {50, 25, 1, 99, 15, 2, 99, 30, 11, 9, 66};
-    // Calculate the size of the array
+    // Create an array of integers
+    int arr1[] = {10, 5, 1, 2, 99, 3, -10, -15, 20, 0};
     int size = sizeof(arr1) / sizeof(arr1[0]);
-    // Invoke the bubble sort function
+    // Invoke bubble sorting function
     bubbleSort(arr1, size);
-    // Print the array
     printArray(arr1, size);
     return 0;
 }
 
+/* Function definition */
+
 void bubbleSort(int arr[], int size)
 {
-    // Iterate to access each element of an array
+    // Iterate through the array from the beginning (we need to access each element of the array)
     for (int step = 1; step < size; step++)
     {
-        // Iterate to compare to adjacent element of the array
+        // Iterate through the array and compare two adjacent element of the array along the way
         for (int i = 0; i < size - step; i++)
         {
-            /* Compare two adjacent elements of the array */
-            // Make a temp variable to swap to adjacent elements of the array
-            int temp;
-            // If the previous element is greater than the next element, swap them
             if (arr[i] > arr[i + 1])
             {
-                temp = arr[i];
+                // Create a temp variable to perform swapping
+                int temp = arr[i];
                 arr[i] = arr[i + 1];
                 arr[i + 1] = temp;
             }
@@ -47,8 +44,8 @@ void bubbleSort(int arr[], int size)
 void printArray(int arr[], int size)
 {
     std::cout << "The sorted array: ";
-    // Iterate through the array and print its values on each iteration
-    for (int i = 0; i < size - 1; i++)
+    // Iterate through the array till the end and print each value onto the screen
+    for (int i = 0; i < size; i++)
     {
         std::cout << arr[i] << " ";
     }
